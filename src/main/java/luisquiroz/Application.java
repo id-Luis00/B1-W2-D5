@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,7 +38,7 @@ public class Application {
                     "\n3 - ricerca tramite ISBN" +
                     "\n4 - ricerca per anno di pubblicazione" +
                     "\n5 - ricerca per autore" +
-                    "\n6 - salvataggio su disco dell'archivio" +
+                    "\n6 - Crea un file con i dati del catalogo" +
                     "\n7 - caricamento dal disco dell'archivio in una nuova lista" +
                     "\n8 - visualizza tutto il catalogo" +
                     "\n9 - elimina tutti gli elementi dal catalogo");
@@ -57,9 +58,12 @@ public class Application {
 
                     try {
                         scelta = 1000;
+
                         scelta = Integer.parseInt(scanner.nextLine());
+                        if (scelta != 1 && scelta != 2) System.out.println("numero non presente in lista, riprova");
                     } catch (Exception e) {
                         System.out.println("1 o 2: sono queste le scelte possibili, riprova.");
+
                     }
 
                     switch (scelta) {
@@ -156,6 +160,11 @@ public class Application {
                     listaCatalogo.ricercaPerAutore(autore);
                     break;
                 case 6:
+                    try {
+                        listaCatalogo.scritturaDisco();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 7:
                     break;

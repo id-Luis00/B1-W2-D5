@@ -5,6 +5,7 @@ import luisquiroz.entities.Libro;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +79,17 @@ public class Archivio {
         logger.info("Elementi eliminati con successo");
 
 
+    }
+
+
+    public void scritturaDisco() throws IOException {
+
+
+        FileWriter writer = new FileWriter("Catalogo.txt");
+        for(Catalog book: listaCatalogo) {
+            writer.write(book + System.lineSeparator());
+        }
+        writer.close();
     }
 
 

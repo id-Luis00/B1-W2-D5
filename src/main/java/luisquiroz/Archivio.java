@@ -89,8 +89,11 @@ public class Archivio {
         for(Catalog book: listaCatalogo) {
             writer.write(book + System.lineSeparator());
         }
+        logger.info("scrittura andata a buon fine!");
         writer.close();
     }
+
+
 
 
 

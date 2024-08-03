@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ServiceConfigurationError;
 
 public class Application {
 
@@ -21,6 +22,7 @@ public class Application {
     public static void main(String[] args) {
 
         Archivio listaCatalogo = new Archivio();
+        int scelta = 100;
 
         listaCatalogo.addToCatalog(new Libro(1, faker.leagueOfLegends().champion(), 2000, 100, "Me", faker.leagueOfLegends().location()));
         listaCatalogo.addToCatalog(new Libro(1234, "qdfq", 14234, 123, "asdaw", "aiuwhdiau"));
@@ -37,14 +39,26 @@ public class Application {
                     "\n6 - salvataggio su disco dell'archivio" +
                     "\n7 - caricamento dal disco dell'archivio in una nuova lista");
 
-            int scelta = Integer.parseInt(scanner.nextLine());
             try {
-                switch (scelta) {
-                    case 1:
-                        System.out.println("cosa vuoi inserire?\n1- un libro\n2- una rivista");
-                        String risp = scanner.nextLine();
-                        switch (Integer.parseInt(risp)) {
-                            case 1:
+                scelta = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Devi inserire un numero!! Riprova.");
+            }
+            switch (scelta) {
+                case 1:
+                    System.out.println("cosa vuoi inserire?\n1- un libro\n2- una rivista");
+
+                    try {
+                        scelta = 100;
+                        scelta = Integer.parseInt(scanner.nextLine());
+                    } catch (Exception e) {
+                        System.out.println("1 o 2: sono queste le scelte possibili, riprova.");
+                    }
+
+                    switch (scelta) {
+
+                        case 1:
+                            try {
                                 System.out.println("inserisci isbn:");
                                 int bookIsbn = Integer.parseInt(scanner.nextLine());
                                 System.out.println("inserisci titolo: ");
@@ -62,9 +76,16 @@ public class Application {
                                 listaCatalogo.addToCatalog(libro);
 
                                 listaCatalogo.stampaCatalogo();
+                            } catch (NumberFormatException e) {
+                                System.out.println("Formato non valido, inserire un numero " + "\nMessaggio di errore --> " + e.getMessage());
+                            } catch (Exception e) {
+                                System.out.println("è stato riscontrato un errore " + e.getMessage());
+                            }
 
-                                break;
-                            case 2:
+
+                            break;
+                        case 2:
+                            try {
                                 System.out.println("inserisci isbn:");
                                 int magIsbn = Integer.parseInt(scanner.nextLine());
                                 System.out.println("inserisci titolo: ");
@@ -80,39 +101,50 @@ public class Application {
                                 listaCatalogo.addToCatalog(rivista);
 
                                 listaCatalogo.stampaCatalogo();
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case 2:
-                        System.out.println("quale elemento vuoi eliminare? (devi inserire l'ISBN) ");
-                        listaCatalogo.stampaCatalogo();
-                        int risposta = Integer.parseInt(scanner.nextLine());
-                        listaCatalogo.rimuoviElemento(risposta);
-                        break;
-                    case 3:
-                        System.out.println("inserisci l'ISBN del libro/rivista: ");
+
+                            } catch (NumberFormatException e) {
+                                System.out.println("Formato non valido, inserire un numero " + "\nMessaggio di errore --> " + e.getMessage());
+                            } catch (Exception e) {
+                                System.out.println("è stato riscontrato un errore " + "\nMessaggio di errore --> " + e.getMessage());
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("quale elemento vuoi eliminare? (devi inserire l'ISBN) ");
+                    listaCatalogo.stampaCatalogo();
+                    int risposta = Integer.parseInt(scanner.nextLine());
+                    listaCatalogo.rimuoviElemento(risposta);
+                    break;
+                case 3:
+                    System.out.println("inserisci l'ISBN del libro/rivista: ");
+                    try {
                         int isbn = Integer.parseInt(scanner.nextLine());
                         listaCatalogo.ricercaElemento(isbn);
-                        break;
-                    case 4:
-                        System.out.println("inserisci l'anno di pubblicazione: ");
+                    } catch (Exception e) {
+                        System.out.println("Errore --> " + e.getMessage());
+                    }
+
+                    break;
+                case 4:
+                    System.out.println("inserisci l'anno di pubblicazione: ");
+                    try {
                         int anno = Integer.parseInt(scanner.nextLine());
                         listaCatalogo.ricercaElementoAnno(anno);
-                        break;
-                    case 5:
-                        System.out.println("inserisci l'autore: ");
-                        String autore = scanner.nextLine();
-                        listaCatalogo.ricercaPerAutore(autore);
-                        break;
-                    default:
-                        System.out.println("niente");
-                        break;
-                }
+                    }catch (Exception e) {
+                        System.out.println("Errore --> " + e.getMessage());
+                    }
 
-            } catch (Exception e) {
-                logger.info("dajeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                    break;
+                case 5:
+                    System.out.println("inserisci l'autore: ");
+                    String autore = scanner.nextLine();
+                    listaCatalogo.ricercaPerAutore(autore);
+                    break;
+                default:
+                    break;
             }
 
 

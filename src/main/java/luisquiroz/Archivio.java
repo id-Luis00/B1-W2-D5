@@ -41,6 +41,7 @@ public class Archivio {
     }
 
     public void ricercaPerAutore(String autore) {
+        
         listaCatalogo.stream().filter(libro -> libro instanceof Libro && ((Libro) libro).getAuthor().equalsIgnoreCase(autore)).forEach(System.out::println);
 
     }

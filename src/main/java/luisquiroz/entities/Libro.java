@@ -12,6 +12,14 @@ public class Libro extends Catalog{
         this.genre = genre;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
     @Override
     public String toString() {
         return "Libro{" +

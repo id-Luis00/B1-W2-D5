@@ -1,6 +1,7 @@
 package luisquiroz;
 
 import luisquiroz.entities.Catalog;
+import luisquiroz.entities.Libro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,21 @@ public class Archivio {
         System.out.println("lista aggiornata");
         stampaCatalogo();
     }
-    
+
+    public void ricercaElemento(int isbn) {
+        listaCatalogo.stream().filter(libro -> libro.getISBN() == isbn).forEach(System.out::println);
+
+    }
+
+    public void ricercaElementoAnno(int anno) {
+        listaCatalogo.stream().filter(libro -> libro.getYearPublish() == anno).forEach(System.out::println);
+    }
+
+    public void ricercaPerAutore(String autore) {
+        listaCatalogo.stream().filter(libro -> libro instanceof Libro && ((Libro) libro).getAuthor().equalsIgnoreCase(autore)).forEach(System.out::println);
+
+    }
+
 
 
 }

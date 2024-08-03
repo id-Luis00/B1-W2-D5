@@ -22,7 +22,7 @@ public class Application {
     public static void main(String[] args) {
 
         Archivio listaCatalogo = new Archivio();
-        int scelta = 100;
+        int scelta = 1000;
 
         listaCatalogo.addToCatalog(new Libro(1, faker.leagueOfLegends().champion(), 2000, 100, "Me", faker.leagueOfLegends().location()));
         listaCatalogo.addToCatalog(new Libro(1234, "qdfq", 14234, 123, "asdaw", "aiuwhdiau"));
@@ -31,16 +31,23 @@ public class Application {
         while (true) {
 
             System.out.println("\ncosa vuoi fare?" +
+                    "\n0 - ESCI" +
                     "\n1 - Aggiungere un libro/rivista" +
                     "\n2 - rimuovere un elemento tramite ISBN" +
                     "\n3 - ricerca tramite ISBN" +
                     "\n4 - ricerca per anno di pubblicazione" +
                     "\n5 - ricerca per autore" +
                     "\n6 - salvataggio su disco dell'archivio" +
-                    "\n7 - caricamento dal disco dell'archivio in una nuova lista");
+                    "\n7 - caricamento dal disco dell'archivio in una nuova lista" +
+                    "\n8 - visualizza tutto il catalogo" +
+                    "\n9 - elimina tutti gli elementi dal catalogo");
 
             try {
                 scelta = Integer.parseInt(scanner.nextLine());
+                if (scelta == 0) {
+                    System.out.println("Ciao ciao!!");
+                    break;
+                };
             } catch (NumberFormatException e) {
                 System.out.println("Devi inserire un numero!! Riprova.");
             }
@@ -49,7 +56,7 @@ public class Application {
                     System.out.println("cosa vuoi inserire?\n1- un libro\n2- una rivista");
 
                     try {
-                        scelta = 100;
+                        scelta = 1000;
                         scelta = Integer.parseInt(scanner.nextLine());
                     } catch (Exception e) {
                         System.out.println("1 o 2: sono queste le scelte possibili, riprova.");
@@ -115,8 +122,13 @@ public class Application {
                 case 2:
                     System.out.println("quale elemento vuoi eliminare? (devi inserire l'ISBN) ");
                     listaCatalogo.stampaCatalogo();
-                    int risposta = Integer.parseInt(scanner.nextLine());
-                    listaCatalogo.rimuoviElemento(risposta);
+                    try {
+                        int risposta = Integer.parseInt(scanner.nextLine());
+                        listaCatalogo.rimuoviElemento(risposta);
+                    } catch (Exception e) {
+                        System.out.println("Errore --> " + e.getMessage());
+                    }
+
                     break;
                 case 3:
                     System.out.println("inserisci l'ISBN del libro/rivista: ");
@@ -143,6 +155,17 @@ public class Application {
                     String autore = scanner.nextLine();
                     listaCatalogo.ricercaPerAutore(autore);
                     break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    listaCatalogo.stampaCatalogo();
+                    break;
+                case 9:
+                    listaCatalogo.clearCatalog();
+                    break;
+
                 default:
                     break;
             }

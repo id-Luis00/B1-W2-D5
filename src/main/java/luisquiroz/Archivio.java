@@ -9,24 +9,27 @@ public class Archivio {
 
     // classe dove aggiungerò tutti i metodi che mi servono
 
-    private List<Catalog> listaCatalogo = new ArrayList<>();
+    private final List<Catalog> listaCatalogo = new ArrayList<>();
 
     public void addToCatalog(Catalog book) {
         this.listaCatalogo.add(book);
     }
 
     public void stampaCatalogo() {
-        listaCatalogo.forEach(System.out::println);
+        final int[] index = {1};
+
+        listaCatalogo.forEach(elemento -> {
+            System.out.println(index[0] + " - " + elemento);
+            index[0]++;
+        });
     }
 
-    public List<Catalog> getListaCatalogo() {
-        return listaCatalogo;
+    public void rimuoviElemento(int isbn) {
+        listaCatalogo.removeIf(libro -> libro.getISBN() == isbn);
+        System.out.println("lista aggiornata");
+        stampaCatalogo();
     }
+    
 
-    @Override
-    public String toString() {
-        return "Archivio{" +
-                "listaCatalogo=" + listaCatalogo +
-                '}';
-    }
+
 }

@@ -1,5 +1,7 @@
 package luisquiroz.entities;
 
+import java.util.Objects;
+
 public abstract class Catalog {
     protected int ISBN;
     protected String title;
@@ -27,6 +29,14 @@ public abstract class Catalog {
 
     public int getNumPages() {
         return numPages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Catalog catalog = (Catalog) o;
+        return ISBN == catalog.ISBN && yearPublish == catalog.yearPublish && numPages == catalog.numPages && Objects.equals(title, catalog.title);
     }
 
 

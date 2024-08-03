@@ -1,5 +1,6 @@
 package luisquiroz;
 
+import com.github.javafaker.Faker;
 import luisquiroz.entities.Catalog;
 import luisquiroz.entities.Libro;
 import luisquiroz.entities.Rivista;
@@ -19,8 +20,11 @@ public class Application {
 
         Scanner scanner = new Scanner(System.in);
         Archivio listaCatalogo = new Archivio();
+        Faker faker = new Faker();
 
-        Libro primo = new Libro(1, "presentazione", 2000, 100, "Me", "Biografico");
+        Libro primo = new Libro(1, faker.leagueOfLegends().champion(), 2000, 100, "Me", faker.leagueOfLegends().location());
+        listaCatalogo.addToCatalog(primo);
+        listaCatalogo.addToCatalog(new Libro(1234, "qdfq", 14234, 123, "asdaw", "aiuwhdiau"));
 
         while (true) {
 
@@ -31,7 +35,7 @@ public class Application {
                     "\n4 - ricerca per anno di pubblicazione" +
                     "\n5 - ricerca per autore" +
                     "\n6 - salvataggio su disco dell'archivio" +
-                    "\7 - caricamento dal disco dell'archivio in una nuova lista");
+                    "\n7 - caricamento dal disco dell'archivio in una nuova lista");
 
             int scelta = Integer.parseInt(scanner.nextLine());
 
@@ -82,6 +86,12 @@ public class Application {
                     }
                     break;
                 case 2:
+                    System.out.println("quale elemento vuoi eliminare? (devi inserire l'ISBN) ");
+                    listaCatalogo.stampaCatalogo();
+                    int risposta = Integer.parseInt(scanner.nextLine());
+                    listaCatalogo.rimuoviElemento(risposta);
+
+
                     break;
                 default:
                     System.out.println("niente");

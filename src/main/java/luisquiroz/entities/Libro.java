@@ -15,11 +15,11 @@ public class Libro extends Catalog{
     @Override
     public String toString() {
         return "Libro{" +
-                "author='" + author + '\'' +
-                ", genre='" + genre + '\'' +
-                ", ISBN=" + ISBN +
-                ", yearPublish=" + yearPublish +
+                "ISBN=" + ISBN +
+                ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", yearPublish=" + yearPublish +
                 ", numPages=" + numPages +
                 '}';
     }
